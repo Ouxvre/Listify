@@ -55,28 +55,79 @@ body {
     margin-right: 10px;
   }
   
-  .nav-item:hover {
-    text-decoration: underline;
-  }
-  
-  .settings {
-    padding-top: 10px;
-    border-top: 1px solid #444;
-  }
-  
-  .settings a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .settings i {
-    margin-right: 10px;
-  }
-  
   .main-content {
     padding: 40px;
     flex-grow: 1;
   }
+
+
+  /** main content **/
+
+  .add-task-section {
+    margin-bottom: 100px;
+  }
+  
+  .add-task-section h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: white;
+  }
+  
+  .task-inputs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .task-inputs input {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    min-width: 160px;
+    background-color: white;
+    color: black;
+  }
+  
+  .add-btn {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-btn:hover {
+    background-color: #ddd;
+  }
+  
+
+  .task-section {
+    margin-top: 150px;
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .task-header h2 {
+    font-size: 32px;
+    color: white;
+  }
+  
+  .task-container {
+    background-color: #2f3542;
+    border-radius: 20px;
+    padding: 20px;
+    min-height: 340px;
+  }
+
+
+  
