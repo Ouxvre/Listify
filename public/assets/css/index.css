@@ -64,7 +64,7 @@ body {
   /** main content **/
 
   .add-task-section {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
   
   .add-task-section h2 {
@@ -80,7 +80,7 @@ body {
   }
   
   .task-inputs input {
-    padding: 8px 12px;
+    padding: 20px 40px;
     border-radius: 10px;
     border: none;
     outline: none;
@@ -91,11 +91,11 @@ body {
   }
   
   .add-btn {
-    background-color: white;
-    color: black;
+    background-color: rgb(0, 255, 51);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 10px;
-    padding: 8px 15px;
+    padding: 20px 50px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -107,7 +107,7 @@ body {
   
 
   .task-section {
-    margin-top: 150px;
+    margin-top: 120px;
   }
   
   .task-header {
@@ -129,5 +129,10 @@ body {
     min-height: 340px;
   }
 
-
-  
+  .garis-putih {
+    border: none;
+    height: 2px;
+    background-color: white;
+    margin: 40px auto; /* untuk memberikan ruang dan membuatnya di tengah */
+    width: 1200px; /* atur panjang garis sesuai kebutuhan */
+  }
