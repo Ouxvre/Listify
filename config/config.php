@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "aethra";
+$database = "listify";
 
 // Membuat koneksi
 $conn = new mysqli($servername, $username, $password, $database);
