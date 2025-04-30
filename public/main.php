@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['username']) || !isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,46 +27,69 @@
     <div class="sidebar">
         <div class="logo">LISTIFY</div>
 
-        <hr class="garis-putih-sidebar"></hr>
-    
+        <hr class="garis-putih-sidebar">
+        </hr>
+
         <nav class="nav-menu">
-          <span class="menu-title">- Main Menu</span>
-          <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
-          <a href="#" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
-          <a href="#" class="nav-item"><i class="fas fa-box-archive"></i> Archive</a>
+            <span class="menu-title">- Main Menu</span>
+            <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
+            <a href="#" class="nav-item"><i class="fas fa-box-archive"></i> Archive</a>
         </nav>
-      </div>
 
-      <div class="main-content">
-        
-        <div class="add-task-section">
-            <h2>Add Task</h2>
-            <div class="task-inputs">
-              <input type="text" placeholder="Add new task">
-              <input type="text" placeholder="Task Title">
-              <input type="text" placeholder="Due Date">
-              <button class="add-btn">Add Task</button>
+        <div class="user-section" onclick="toggleDropdown()">
+            <img src="images/default-avatar.png" alt="User" class="avatar">
+            
+            <div class="user-info">
+                <div class="name"><?= htmlspecialchars($username) ?></div>
+                <div class="email"><?= htmlspecialchars($email) ?></div>
             </div>
-          </div>
-          
-          <hr class="garis-putih"></hr>
 
-        <div class="task-section">
-            <div class="task-header">
-              <h2>My Task</h2>
+            <div id="dropdown" class="dropdown hidden">
+                <a href="profile.php">Profile</a>
+                <a href="setting.php">Settings</a>
+                <a href="logout.php">Logout</a>
             </div>
-            <div class="task-container">
-              <!-- Tempat tugas akan ditampilkan -->
+
+        </div>
+
+</div>
+
+            <!-- main content -->
+            <div class="main-content">
+
+                <div class="add-task-section">
+                    <h2>Add Task</h2>
+                    <div class="task-inputs">
+                        <input type="text" placeholder="Add Title...">
+                        <input type="text" placeholder="Add new task...">
+                        <input type="datetime-local" placeholder="Due Date">
+                        <button class="add-btn">Add Task</button>
+                    </div>
+
+                </div>
+
+                <hr class="garis-putih">
+                </hr>
+
+                <div class="task-section">
+                    <div class="task-header">
+                        <h2>My Task</h2>
+                    </div>
+                    <div class="task-container">
+                        <!-- Tempat tugas akan ditampilkan -->
+                    </div>
+                </div>
+
+                <button id="toggle-theme" class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+
             </div>
-          </div>
 
-          <button id="toggle-theme" class="theme-toggle">
-            <i class="fas fa-sun"></i>
-          </button>
-          
-      </div>
+            <div class="footer"></div>
 
-      <div class="footer"></div>
 </body>
 <script src="js/main.js"></script>
+
 </html>
