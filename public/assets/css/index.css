@@ -4,7 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: 1px solid rgb(0, 38, 255);
 }
+
+html, body {
+  overflow-x: hidden;
+}
+
 
 body {
     background-color: #0A0E15;
@@ -78,9 +84,13 @@ body {
     gap: 15px;
     flex-wrap: wrap;
   }
+
+  .add-task-section h2 {
+    margin-bottom: 20px;
+  }
   
   .task-inputs input {
-    padding: 20px 40px;
+    padding: 20px 30px;
     border-radius: 10px;
     border: none;
     outline: none;
@@ -105,9 +115,10 @@ body {
     background-color: #ddd;
   }
   
+  /** Main task **/
 
   .task-section {
-    margin-top: 120px;
+    margin-top: 10px;
   }
   
   .task-header {
@@ -129,10 +140,13 @@ body {
     min-height: 340px;
   }
 
+  /* garis putih */
+
   .garis-putih {
     border: none;
     height: 2px;
     background-color: white;
-    margin: 40px auto; /* untuk memberikan ruang dan membuatnya di tengah */
-    width: 1200px; /* atur panjang garis sesuai kebutuhan */
+    margin: 50px auto;
+    max-width: 100%;
+    width: 100%;
   }
