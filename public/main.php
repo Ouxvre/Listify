@@ -16,7 +16,7 @@ $email = $_SESSION['email'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Listify</title>
     <link rel="stylesheet" href="assets/css/main.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -39,55 +39,59 @@ $email = $_SESSION['email'];
 
         <div class="user-section" onclick="toggleDropdown()">
             <img src="images/default-avatar.png" alt="User" class="avatar">
-            
+
             <div class="user-info">
                 <div class="name"><?= htmlspecialchars($username) ?></div>
                 <div class="email"><?= htmlspecialchars($email) ?></div>
             </div>
 
-            <div id="dropdown" class="dropdown hidden">
+
+            <!--             <div class="dropdown">
+            <i class="fa-solid fa-grip-lines"></i>
+            
+            <div id="dropdownMenu" class="dropdown-menu">
                 <a href="profile.php">Profile</a>
                 <a href="setting.php">Settings</a>
-                <a href="logout.php">Logout</a>
+                <a href="../auth/logout.php">Logout</a>
+            </div>
+            </div> -->
+        </div>
+
+    </div>
+
+    <!-- main content -->
+    <div class="main-content">
+
+        <div class="add-task-section">
+            <h2>Add Task</h2>
+            <div class="task-inputs">
+                <input type="text" placeholder="Add Title...">
+                <input type="text" placeholder="Add new task...">
+                <input type="datetime-local" placeholder="Due Date">
+                <button class="add-btn">Add Task</button>
             </div>
 
         </div>
 
-</div>
+        <hr class="garis-putih">
+        </hr>
 
-            <!-- main content -->
-            <div class="main-content">
-
-                <div class="add-task-section">
-                    <h2>Add Task</h2>
-                    <div class="task-inputs">
-                        <input type="text" placeholder="Add Title...">
-                        <input type="text" placeholder="Add new task...">
-                        <input type="datetime-local" placeholder="Due Date">
-                        <button class="add-btn">Add Task</button>
-                    </div>
-
-                </div>
-
-                <hr class="garis-putih">
-                </hr>
-
-                <div class="task-section">
-                    <div class="task-header">
-                        <h2>My Task</h2>
-                    </div>
-                    <div class="task-container">
-                        <!-- Tempat tugas akan ditampilkan -->
-                    </div>
-                </div>
-
-                <button id="toggle-theme" class="theme-toggle">
-                    <i class="fas fa-sun"></i>
-                </button>
-
+        <div class="task-section">
+            <div class="task-header">
+                <h2>My Task</h2>
             </div>
+            <div class="task-container">
+                <!-- Tempat tugas akan ditampilkan -->
+            </div>
+        </div>
 
-            <div class="footer"></div>
+        <button id="toggle-theme" class="theme-toggle">
+            <i class="fas fa-sun"></i>
+        </button>
+
+    </div>
+
+    <div class="footer"></div>
 
 </body>
 <script src="js/main.js"></script>

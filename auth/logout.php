@@ -9,6 +9,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 header("Pragma: no-cache");
 
 // Arahkan ke halaman login dengan pesan logout
-header("Location: login.php");
+header("Location: ../public/login.php?logout=true");
 exit();
 ?>
