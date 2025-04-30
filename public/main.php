@@ -38,11 +38,11 @@ $email = $_SESSION['email'];
             <a href="#" class="nav-item"><i class="fas fa-box-archive"></i> Archive</a>
         </nav>
 
+        <a href="../auth/logout.php">Logout</a>
         <hr class="garis-putih-profile">
         </hr>
 
        <!--  profile -->
-         
         <div class="user-section" onclick="toggleDropdown()">
             <img src="assets/image/default.jpeg" alt="User">
 
@@ -50,6 +50,7 @@ $email = $_SESSION['email'];
                 <div class="nameDropdown"><?= htmlspecialchars($username) ?></div>
                 <div class="emailDropdown"><?= htmlspecialchars($email) ?></div>
             </div>
+
 
             <div class="dropdown">
             
