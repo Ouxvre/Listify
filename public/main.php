@@ -71,10 +71,10 @@ $email = $_SESSION['email'];
         <div class="add-task-section">
             <h2>Add Task</h2>
             <div class="task-inputs">
-                <input type="text" placeholder="Add Title...">
-                <input type="text" placeholder="Add new task...">
-                <input type="datetime-local" placeholder="Due Date">
-                <button class="add-btn">Add Task</button>
+                <input type="text" id="title-input" placeholder="Add Title...">
+                <input type="text" id="task-input" placeholder="Add new task...">
+                <input type="datetime-local" id="date-input" placeholder="Due Date">
+                <button class="add-btn" id="add-task">Add Task</button>
             </div>
 
         </div>
