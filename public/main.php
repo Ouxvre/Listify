@@ -24,6 +24,7 @@ $email = $_SESSION['email'];
 </head>
 
 <body>
+
     <div class="sidebar">
         <div class="logo">LISTIFY</div>
 
@@ -37,24 +38,28 @@ $email = $_SESSION['email'];
             <a href="#" class="nav-item"><i class="fas fa-box-archive"></i> Archive</a>
         </nav>
 
+        <hr class="garis-putih-profile">
+        </hr>
+
+       <!--  profile -->
+         
         <div class="user-section" onclick="toggleDropdown()">
-            <img src="images/default-avatar.png" alt="User" class="avatar">
+            <img src="assets/image/default.jpeg" alt="User">
 
             <div class="user-info">
-                <div class="name"><?= htmlspecialchars($username) ?></div>
-                <div class="email"><?= htmlspecialchars($email) ?></div>
+                <div class="nameDropdown"><?= htmlspecialchars($username) ?></div>
+                <div class="emailDropdown"><?= htmlspecialchars($email) ?></div>
             </div>
 
-
-            <!--             <div class="dropdown">
-            <i class="fa-solid fa-grip-lines"></i>
+            <div class="dropdown">
             
-            <div id="dropdownMenu" class="dropdown-menu">
+            <!-- <div id="dropdownMenu" class="dropdown-menu">
                 <a href="profile.php">Profile</a>
                 <a href="setting.php">Settings</a>
                 <a href="../auth/logout.php">Logout</a>
-            </div>
             </div> -->
+            
+            </div>
         </div>
 
     </div>
