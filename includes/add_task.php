@@ -1,18 +1,21 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include '../config/config.php'; // Pastikan koneksi DB di sini (atau sesuaikan path)
+session_start();
+include '../config/config.php';
 
-    $title = $_POST['title'];
-    $task = $_POST['task'];
-    $due_date = $_POST['due_date'];
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $title = $_POST["title"];
+    $description = $_POST["task"];
+    $deadline = $_POST["deadline"];
 
-    $stmt = $conn->prepare("INSERT INTO todos (title, description, deadline) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $title, $task, $due_date);
-    $stmt->execute();
-    $stmt->close();
+    if ($title && $description && $deadline) {
+        $stmt = $conn->prepare("INSERT INTO todos (user_id, title, description, deadline) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("isss", $user_id, $title, $description, $deadline);
+        $stmt->execute();
+        $stmt->close();
+    }
 
-    // Redirect kembali ke main.php setelah input
-    header("Location: ../public/main.php");
+    header("Location: ../public/main.php"); // arahkan kembali ke halaman utama setelah submit
     exit();
 }
 ?>

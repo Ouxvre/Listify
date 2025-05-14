@@ -1,14 +1,14 @@
 <?php
-session_start();
-include '../config/config.php';
+    session_start();
+    include '../config/config.php';
 
-if (!isset($_SESSION['username']) || !isset($_SESSION['email'])) {
-    header("Location: login.php");
-    exit();
-}
+    if (! isset($_SESSION['username']) || ! isset($_SESSION['email'])) {
+        header("Location: login.php");
+        exit();
+    }
 
-$username = $_SESSION['username'];
-$email = $_SESSION['email'];
+    $username = $_SESSION['username'];
+    $email    = $_SESSION['email'];
 ?>
 
 
@@ -37,9 +37,10 @@ $email = $_SESSION['email'];
             <span class="menu-title">- Main Menu</span>
             <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
             <a href="#" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
+            <a href="../auth/logout.php" class="nav-item"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Logout</a>
         </nav>
 
-        <a href="../auth/logout.php">Logout</a>
         <hr class="garis-putih-profile">
         </hr>
 
@@ -48,8 +49,12 @@ $email = $_SESSION['email'];
             <img src="assets/image/default.jpeg" alt="User">
 
             <div class="user-info">
-                <div class="nameDropdown"><?= htmlspecialchars($username) ?></div>
-                <div class="emailDropdown"><?= htmlspecialchars($email) ?></div>
+                <div class="nameDropdown">
+                    <?php echo htmlspecialchars($username) ?>
+                </div>
+                <div class="emailDropdown">
+                    <?php echo htmlspecialchars($email) ?>
+                </div>
             </div>
 
 
@@ -75,7 +80,7 @@ $email = $_SESSION['email'];
                 <div class="task-inputs">
                     <input type="text" name="title" id="title-input" placeholder="Add Title..." required>
                     <input type="text" name="task" id="task-input" placeholder="Add new task..." required>
-                    <input type="datetime-local" name="deadline" id="date-input" placeholder="Due Date" required>
+                    <input type="datetime-local" name="deadline" id="date-input" placeholder="Deadline..." required>
                     <button type="submit" class="add-btn" id="add-task">Add Task</button>
                 </div>
 
@@ -93,15 +98,61 @@ $email = $_SESSION['email'];
                 <!-- Tempat tugas akan ditampilkan -->
 
                 <?php
-                $result = $conn->query("SELECT * FROM todos ORDER BY deadline ASC");
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='task-box'>";
-                    echo "<h4>" . htmlspecialchars($row['title']) . "</h4>";
-                    echo "<p>" . htmlspecialchars($row['description']) . "</p>";
-                    echo "<small>Due: " . htmlspecialchars($row['due_date']) . "</small>";
-                    echo "</div>";
-                }
+                    $user_id = $_SESSION['user_id'];
+
+                    $query = "SELECT * FROM todos WHERE user_id = ? ORDER BY deadline ASC";
+                    $stmt  = $conn->prepare($query);
+                    $stmt->bind_param("i", $user_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    // Cek jika ada task
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            // Letakkan HTML task di sini
+                            $status   = $row['status'];
+                            $priority = $row['priority'];
+                            $deadline = date("Y-m-d H:i", strtotime($row['deadline']));
+
+                            $color = '';
+                            if ($status == 'completed') {
+                                $color = 'green';
+                            } else {
+                                $now  = new DateTime();
+                                $due  = new DateTime($row['deadline']);
+                                $diff = $now->diff($due)->days;
+
+                                if ($due < $now) {
+                                    $color = 'red';
+                                } elseif ($diff <= 1) {
+                                    $color = 'red';
+                                } else {
+                                    $color = 'yellow';
+                                }
+                            }
+
+                            echo "<div class='task-box'>";
+                            echo "<div class='task-bar $color'></div>";
+                            echo "<div class='task-content'>";
+                            echo "<h4>" . htmlspecialchars($row['title']) . "</h4>";
+                            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+                            echo "<small>$deadline</small>";
+                            echo "</div>";
+                            echo "<div class='task-actions'>";
+                            echo "<button class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
+                            echo "<input type='checkbox' " . ($status == 'completed' ? 'checked' : '') . ">";
+                            echo "<button class='delete-btn'>❌</button>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p style='color: white;'>Belum ada task.</p>";
+                    }
+
+                    $stmt->close();
                 ?>
+
+
             </div>
         </div>
 
