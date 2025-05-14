@@ -1,5 +1,7 @@
 <?php
 session_start();
+include '../config/config.php';
+
 if (!isset($_SESSION['username']) || !isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
@@ -35,7 +37,6 @@ $email = $_SESSION['email'];
             <span class="menu-title">- Main Menu</span>
             <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
             <a href="#" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
-            <a href="#" class="nav-item"><i class="fas fa-box-archive"></i> Archive</a>
         </nav>
 
         <a href="../auth/logout.php">Logout</a>
@@ -92,8 +93,6 @@ $email = $_SESSION['email'];
                 <!-- Tempat tugas akan ditampilkan -->
 
                 <?php
-                include '../config/config.php';
-
                 $result = $conn->query("SELECT * FROM todos ORDER BY deadline ASC");
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='task-box'>";
