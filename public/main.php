@@ -35,8 +35,8 @@ $email = $_SESSION['email'];
 
         <nav class="nav-menu">
             <span class="menu-title">- Main Menu</span>
-            <a href="#" class="nav-item"><i class="fas fa-home"></i> Home</a>
-            <a href="#" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
+            <a href="main.php" class="nav-item"><i class="fas fa-home"></i> Home</a>
+            <a href="history.php" class="nav-item"><i class="fas fa-clock-rotate-left"></i> History</a>
             <a href="../auth/logout.php" class="nav-item"><i class="fa-solid fa-arrow-right-from-bracket"></i>
                 Logout</a>
         </nav>
@@ -74,7 +74,7 @@ $email = $_SESSION['email'];
     <!-- main content -->
     <div class="main-content">
 
-        <form action="../includes/add_task.php" method="POST">
+        <form  id="task-form">
             <div class="add-task-section">
                 <h2>Add Task</h2>
                 <div class="task-inputs">
@@ -144,15 +144,15 @@ $email = $_SESSION['email'];
                         echo "<button class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
 
                         // Checkbox untuk completed
-                        echo "<form method='POST' action='includes/update_task.php' style='display:inline;'>";
+                        echo "<form method='POST' action='includes/completed.php' style='display:inline;'>";
                         echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
                         echo "<input type='checkbox' name='complete_task' onchange='this.form.submit()' " . ($status == 'completed' ? 'checked' : '') . ">";
                         echo "</form>";
 
                         // Tombol delete
-                        echo "<form method='POST' action='includes/update_task.php' style='display:inline;'>";
+                        echo "<form method='POST' action='includes/delete.php' style='display:inline;'>";
                         echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
-                        echo "<button type='submit' name='delete_task' class='delete-btn'>❌</button>";
+                        echo "<button type='button' class='delete-btn' data-id='" . $row['id'] . "'>❌</button>";
                         echo "</form>";
 
 
