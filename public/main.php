@@ -1,14 +1,14 @@
 <?php
-    session_start();
-    include '../config/config.php';
+session_start();
+include '../config/config.php';
 
-    if (! isset($_SESSION['username']) || ! isset($_SESSION['email'])) {
-        header("Location: login.php");
-        exit();
-    }
+if (!isset($_SESSION['username']) || !isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit();
+}
 
-    $username = $_SESSION['username'];
-    $email    = $_SESSION['email'];
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
 ?>
 
 
@@ -98,58 +98,72 @@
                 <!-- Tempat tugas akan ditampilkan -->
 
                 <?php
-                    $user_id = $_SESSION['user_id'];
+                $user_id = $_SESSION['user_id'];
 
-                    $query = "SELECT * FROM todos WHERE user_id = ? ORDER BY deadline ASC";
-                    $stmt  = $conn->prepare($query);
-                    $stmt->bind_param("i", $user_id);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+                $query = "SELECT * FROM todos WHERE user_id = ? ORDER BY deadline ASC";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                    // Cek jika ada task
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            // Letakkan HTML task di sini
-                            $status   = $row['status'];
-                            $priority = $row['priority'];
-                            $deadline = date("Y-m-d H:i", strtotime($row['deadline']));
+                // Cek jika ada task
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        // Letakkan HTML task di sini
+                        $status = $row['status'];
+                        $priority = $row['priority'];
+                        $deadline = date("Y-m-d H:i", strtotime($row['deadline']));
 
-                            $color = '';
-                            if ($status == 'completed') {
-                                $color = 'green';
+                        $color = '';
+                        if ($status == 'completed') {
+                            $color = 'green';
+                        } else {
+                            $now = new DateTime();
+                            $due = new DateTime($row['deadline']);
+                            $diff = $now->diff($due)->days;
+
+                            if ($due < $now) {
+                                $color = 'red';
+                            } elseif ($diff <= 1) {
+                                $color = 'red';
                             } else {
-                                $now  = new DateTime();
-                                $due  = new DateTime($row['deadline']);
-                                $diff = $now->diff($due)->days;
-
-                                if ($due < $now) {
-                                    $color = 'red';
-                                } elseif ($diff <= 1) {
-                                    $color = 'red';
-                                } else {
-                                    $color = 'yellow';
-                                }
+                                $color = 'yellow';
                             }
-
-                            echo "<div class='task-box'>";
-                            echo "<div class='task-bar $color'></div>";
-                            echo "<div class='task-content'>";
-                            echo "<h4>" . htmlspecialchars($row['title']) . "</h4>";
-                            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
-                            echo "<small>$deadline</small>";
-                            echo "</div>";
-                            echo "<div class='task-actions'>";
-                            echo "<button class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
-                            echo "<input type='checkbox' " . ($status == 'completed' ? 'checked' : '') . ">";
-                            echo "<button class='delete-btn'>❌</button>";
-                            echo "</div>";
-                            echo "</div>";
                         }
-                    } else {
-                        echo "<p style='color: white;'>Belum ada task.</p>";
-                    }
 
-                    $stmt->close();
+                        echo "<div class='task-box'>";
+                        echo "<div class='task-bar $color'></div>";
+                        echo "<div class='task-content'>";
+                        echo "<h4>" . htmlspecialchars($row['title']) . "</h4>";
+                        echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+                        echo "<small>$deadline</small>";
+                        echo "</div>";
+                        echo "<div class='task-actions'>";
+
+                        // Tombol favorit (opsional, belum ditangani di backend)
+                        echo "<button class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
+
+                        // Checkbox untuk completed
+                        echo "<form method='POST' action='includes/update_task.php' style='display:inline;'>";
+                        echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
+                        echo "<input type='checkbox' name='complete_task' onchange='this.form.submit()' " . ($status == 'completed' ? 'checked' : '') . ">";
+                        echo "</form>";
+
+                        // Tombol delete
+                        echo "<form method='POST' action='includes/update_task.php' style='display:inline;'>";
+                        echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
+                        echo "<button type='submit' name='delete_task' class='delete-btn'>❌</button>";
+                        echo "</form>";
+
+
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<p style='color: white;'>Belum ada task.</p>";
+                }
+
+                $stmt->close();
                 ?>
 
 

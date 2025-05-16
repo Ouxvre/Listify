@@ -1,42 +1,25 @@
 <?php
 session_start();
-require '../config/config.php';
+require '../config/database.php'; // Sesuaikan path jika beda
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_SESSION['user_id'])) {
-        http_response_code(401);
-        echo json_encode(['error' => 'Not authenticated']);
-        exit();
-    }
-
+    $task_id = $_POST['task_id'];
     $user_id = $_SESSION['user_id'];
-    $task_id = $_POST['task_id'] ?? null;
-    $status = $_POST['status'] ?? null;
 
-    if (!$task_id || !in_array($status, ['pending', 'completed'])) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Invalid input']);
-        exit();
+    // Jika tombol delete ditekan
+    if (isset($_POST['delete_task'])) {
+        $stmt = $conn->prepare("UPDATE todos SET status = 'deleted' WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $task_id, $user_id);
+        $stmt->execute();
     }
 
-    if ($status === 'completed') {
-        $stmt = $conn->prepare("UPDATE todos SET status = ?, completed_at = NOW() WHERE id = ? AND user_id = ?");
-    } else {
-        $stmt = $conn->prepare("UPDATE todos SET status = ?, completed_at = NULL WHERE id = ? AND user_id = ?");
+    // Jika checkbox centang ditekan
+    if (isset($_POST['complete_task'])) {
+        $stmt = $conn->prepare("UPDATE todos SET status = 'completed' WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $task_id, $user_id);
+        $stmt->execute();
     }
 
-    $stmt->bind_param("sii", $status, $task_id, $user_id);
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-    } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Database error']);
-    }
-
-    $stmt->close();
-} else {
-    http_response_code(405);
-    echo json_encode(['error' => 'Invalid request method']);
+    header("Location: ../public/main.php");
+    exit;
 }
-?>
