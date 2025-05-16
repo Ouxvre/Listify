@@ -160,7 +160,7 @@ $email = $_SESSION['email'];
                         echo "</div>";
                     }
                 } else {
-                    echo "<p style='color: white;'>Belum ada task.</p>";
+                    echo "<p style='color: white;'>There are no tasks yet...</p>";
                 }
 
                 $stmt->close();
