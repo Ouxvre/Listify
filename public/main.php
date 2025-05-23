@@ -58,15 +58,6 @@ $email = $_SESSION['email'];
             </div>
 
 
-            <div class="dropdown">
-
-                <!-- <div id="dropdownMenu" class="dropdown-menu">
-                <a href="profile.php">Profile</a>
-                <a href="setting.php">Settings</a>
-                <a href="../auth/logout.php">Logout</a>
-            </div> -->
-
-            </div>
         </div>
 
     </div>
@@ -142,14 +133,14 @@ $email = $_SESSION['email'];
                         echo "<div class='task-actions'>";
 
                         // Tombol favorit (opsional, belum ditangani di backend)
-                        echo "<form method='POST' action='includes/toggle_priority.php' style='display:inline;'>";
+                        echo "<form method='POST' action='../includes/toggle_priority.php' style='display:inline;'>";
                         echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
                         echo "<button type='submit' class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
                         echo "</form>";
 
 
                         // Checkbox untuk completed
-                        echo "<form method='POST' action='includes/completed.php' style='display:inline;'>";
+                        echo "<form method='POST' action='../includes/completed.php' style='display:inline;'>";
                         echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
                         echo "<input type='checkbox' name='complete_task' onchange='this.form.submit()' " . ($status == 'completed' ? 'checked' : '') . ">";
                         echo "</form>";
