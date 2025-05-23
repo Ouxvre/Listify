@@ -74,7 +74,7 @@ $email = $_SESSION['email'];
     <!-- main content -->
     <div class="main-content">
 
-        <form  id="task-form">
+        <form id="task-form">
             <div class="add-task-section">
                 <h2>Add Task</h2>
                 <div class="task-inputs">
@@ -100,7 +100,8 @@ $email = $_SESSION['email'];
                 <?php
                 $user_id = $_SESSION['user_id'];
 
-                $query = "SELECT * FROM todos WHERE user_id = ? ORDER BY deadline ASC";
+                $query = "SELECT * FROM todos WHERE user_id = ? ORDER BY priority DESC, deadline ASC";
+
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("i", $user_id);
                 $stmt->execute();
@@ -141,7 +142,11 @@ $email = $_SESSION['email'];
                         echo "<div class='task-actions'>";
 
                         // Tombol favorit (opsional, belum ditangani di backend)
-                        echo "<button class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
+                        echo "<form method='POST' action='includes/toggle_priority.php' style='display:inline;'>";
+                        echo "<input type='hidden' name='task_id' value='" . $row['id'] . "'>";
+                        echo "<button type='submit' class='star-btn'>" . ($priority ? '⭐' : '☆') . "</button>";
+                        echo "</form>";
+
 
                         // Checkbox untuk completed
                         echo "<form method='POST' action='includes/completed.php' style='display:inline;'>";

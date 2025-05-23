@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  outline: 1px solid rgb(0, 38, 255);
+  /* outline: 1px solid rgb(0, 38, 255); */
 }
 
 body {
@@ -194,11 +194,13 @@ body {
 }
 
 .star-btn {
-  font-size: 24px;
+  font-size: 20px;
   background: none;
   border: none;
   cursor: pointer;
+  margin-right: 5px;
 }
+
 
 .delete-btn {
   font-size: 24px;
