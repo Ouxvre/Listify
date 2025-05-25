@@ -62,9 +62,17 @@ $email = $_SESSION['email'];
 
     </div>
 
-        <button id="toggle-theme" class="theme-toggle">
-            <i class="fas fa-sun"></i>
-        </button>
+    <!-- task history -->
+    <div class="history-section">
+        <h2>TASK HISTORY</h2>
+        <div class="history-content">
+        
+        </div>
+    </div>
+
+    <button id="toggle-theme" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+    </button>
 
     </div>
 

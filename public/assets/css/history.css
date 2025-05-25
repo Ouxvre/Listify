@@ -71,6 +71,26 @@ body {
   width: 100%;
 }
 
+/* main history */
+
+.history-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.history-section h2 {
+  color:white ;
+  text-align: center;
+}
+
+/* .history-content {
+    background-color: #2f3441;
+    padding: 30px;
+    border-radius: 20px;
+    width: 500%;
+} */
+
 
 /* toggle dark mode */
 
